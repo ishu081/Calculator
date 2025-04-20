@@ -1,65 +1,52 @@
-*{
-    padding: 0;
-    margin: 0;
+function clearDisplay()
+{
+    document.getElementById("display").value="";
+}
+
+function appendValue(value){
+    document.getElementById("display").value +=value;
+
+}
+function calculateResult()
+{
+    try {
+        document.getElementById("display").value = eval(document.getElementById("display").value);
+    } catch {
+        document.getElementById("display").value = "Error";
+    }
+}
+function square() {
+    const display = document.getElementById("display");
+    display.value += "**2"; 
   }
-  body{
-  background-color: darkgray;
-  overflow: unset;
-  }
+
+  document.addEventListener("keydown", function (event) {
+    const key = event.key;
+    const display = document.getElementById("display");
   
-  .topic{
-    text-align: center;
-    margin-top: 3rem;
-        font-size: 6rem;
+    // Numbers and basic operators
+    if (!isNaN(key) || "+-*/.".includes(key)) {
+      display.value += key;
+    }
   
-  }
+    // Enter or = → Evaluate
+    if (key === "Enter" || key === "=") {
+      calculateResult();
+    }
   
+    // Backspace → delete last character
+    if (key === "Backspace") {
+      display.value = display.value.slice(0, -1);
+    }
   
-  .container{
-    border: 1px solid gray;
-    border-radius: 1rem;
-    height: 30rem;
-    margin: 11rem 43rem;
-    width: 33rem;
-    background-color: black;
+    // Escape → clear
+    if (key === "Escape") {
+      clearDisplay();
+    }
   
-  
-  }
-  
-  .container1{
-    border: 1px solid black;
-    border-radius: 1rem;
-    height: 8rem;
-    width: 33rem;
-    margin-top: 0.5rem;
-    background-color: white;
-    color: black;
-  
-  
-  }
-  .container2{
-    border: 1px solid black;
-    border-radius: 1rem;
-    height: 17rem;
-    width: 33rem;
-    margin-top: 0.5rem;
-    background-color: black;
-    margin-top: 4rem;
-    color: black;
-  
-  
-  }
-  
-  button{
-    width: 6rem;
-    height: 3rem;
-    margin: 0.2rem 0.19rem;
-  
-  }
-  
-  #r2{
-    font-size: 1rem;
-  }
-  
-  
+    // s or S → square the current number
+    if (key === "s" || key === "S") {
+      square();
+    }
+  });
   
